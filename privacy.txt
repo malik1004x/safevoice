@@ -1,0 +1,3 @@
+==SAFEVOICE PRIVACY POLICY==
+
+No data is collected by the SafeVoice app. It does not access any external server or send any data from the user's device.
