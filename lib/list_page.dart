@@ -10,7 +10,7 @@ import "password_input_page.dart";
 import "encryptor.dart";
 import "player_widget.dart";
 import "styles.dart";
-import "show_error_message.dart";
+import "dialog_boxes.dart";
 
 class RecordingsList extends StatefulWidget {
   const RecordingsList({super.key});

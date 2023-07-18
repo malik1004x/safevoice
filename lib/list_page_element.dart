@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'ask_yesno_question.dart';
 import 'encryptor.dart';
 import 'styles.dart';
-
-import 'ask_for_text.dart';
+import 'dialog_boxes.dart';
 
 class RecordingListPageElement extends StatefulWidget {
   const RecordingListPageElement(

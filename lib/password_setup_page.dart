@@ -2,7 +2,7 @@ import 'package:fast_rsa/fast_rsa.dart';
 import 'package:flutter/material.dart';
 import 'encryptor.dart';
 import 'password_input_page.dart';
-import 'show_error_message.dart';
+import 'dialog_boxes.dart';
 
 class PasswordSetupPage extends StatefulWidget {
   const PasswordSetupPage(
