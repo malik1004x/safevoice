@@ -48,8 +48,8 @@ const settingsLightTheme = SettingsThemeData(
   settingsSectionBackground: Colors.white,
 );
 const aboutPageIcon = Stack(alignment: AlignmentDirectional.center, children: [
-  Icon(Icons.fiber_manual_record, color: Colors.red, size: 400.0),
-  Icon(Icons.lock, color: Colors.white, size: 200.0),
+  Icon(Icons.fiber_manual_record, color: Colors.red, size: 300.0),
+  Icon(Icons.lock, color: Colors.white, size: 150.0),
 ]);
 const decryptingProgressTextStyle = TextStyle(
   fontSize: 20,
