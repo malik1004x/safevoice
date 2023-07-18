@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 
-Widget buildTimer(int time, TextStyle timerStyle) {
-  final String minutes = formatNumber(time ~/ 60);
-  final String seconds = formatNumber(time % 60);
+Widget buildTimer(
+    int time, TextStyle mainTimerStyle, TextStyle smallTimerStyle) {
+  final String minutes = formatNumber(time ~/ 6000);
+  final int secondsAndMilliseconds = time % 6000;
+  final String seconds = formatNumber(secondsAndMilliseconds ~/ 100);
+  final String milliseconds = formatNumber(secondsAndMilliseconds % 100);
 
-  return Text(
-    '$minutes:$seconds',
-    style: timerStyle,
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.baseline,
+    textBaseline: TextBaseline.ideographic,
+    children: [
+      Text(
+        '$minutes:$seconds',
+        style: mainTimerStyle,
+      ),
+      Text(".$milliseconds", style: smallTimerStyle)
+    ],
   );
 }
 

@@ -63,7 +63,7 @@ class _RecorderPageState extends State<RecorderPage> {
   void _startTimer() {
     _timer?.cancel();
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+    _timer = Timer.periodic(const Duration(milliseconds: 1), (Timer t) {
       setState(() => _recordDuration++);
     });
   }
@@ -84,7 +84,8 @@ class _RecorderPageState extends State<RecorderPage> {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          buildTimer(_recordDuration, counterTextStyle),
+          buildTimer(
+              _recordDuration, counterTextStyle, counterMillisecondsTextStyle),
           Column(
             children: [
               OutlinedButton(

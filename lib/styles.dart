@@ -6,6 +6,10 @@ const counterTextStyle = TextStyle(
   fontSize: 80,
   fontWeight: FontWeight.bold,
 );
+const counterMillisecondsTextStyle = TextStyle(
+  fontSize: 60,
+  fontWeight: FontWeight.w300,
+);
 var recordButtonStyle = ButtonStyle(
     alignment: AlignmentDirectional.center,
     minimumSize: MaterialStateProperty.all(const Size(150, 150)));
