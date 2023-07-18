@@ -4,6 +4,11 @@ import "package:path_provider/path_provider.dart";
 import 'package:fast_rsa/fast_rsa.dart';
 import "main.dart";
 
+class FileExistsException implements Exception {
+  String cause;
+  FileExistsException(this.cause);
+}
+
 void genKeys(String password) async {
   var keys = await RSA.generate(2048);
   prefs.setString("public_key", keys.publicKey);
@@ -39,11 +44,15 @@ void eraseRecording(String path) async {
   await file.delete();
 }
 
-void renameRecording(String path, String newName) async {
+void renameRecording(String path, String newName) {
   final file = File(path);
   final oldName = path.split("/").last;
   final newPath = path.replaceAll(oldName, newName);
-  file.rename(newPath);
+  if (File(newPath).existsSync()) {
+    throw FileExistsException("File already exists.");
+  } else {
+    file.rename(newPath);
+  }
 }
 
 Future<String> decryptPrivateKey(String password) async {

@@ -40,7 +40,12 @@ class _RecordingListPageElementState extends State<RecordingListPageElement> {
                   onPressed: () {
                     askForTextInDialog(context, title: "Enter new name:",
                         onComplete: (result) {
-                      renameRecording(widget.path, result);
+                      try {
+                        renameRecording(widget.path, result);
+                      } on FileExistsException {
+                        showErrorMessage(context, "File exists",
+                            "A recording with this name already exists. Please try another name.");
+                      }
                     });
                   },
                   icon: const Icon(Icons.edit)),

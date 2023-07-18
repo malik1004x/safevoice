@@ -59,8 +59,9 @@ Future<void> askForTextInDialog(BuildContext context,
           content: TextField(
             autofocus: true,
             onSubmitted: (value) {
-              onComplete(value);
+              // this is in "reverse" order in case onComplete opens another page or displays a dialog box.
               Navigator.of(context).pop();
+              onComplete(value);
             },
           ),
           actions: <Widget>[
