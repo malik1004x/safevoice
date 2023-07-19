@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 Widget buildTimer(
     int time, TextStyle mainTimerStyle, TextStyle smallTimerStyle) {
-  final String minutes = formatNumber(time ~/ 6000);
-  final int secondsAndMilliseconds = time % 6000;
-  final String seconds = formatNumber(secondsAndMilliseconds ~/ 100);
-  final String milliseconds = formatNumber(secondsAndMilliseconds % 100);
+  final String minutes = formatNumber(time ~/ 60000);
+  final int secondsAndMilliseconds = time % 60000;
+  final String seconds = formatNumber(secondsAndMilliseconds ~/ 1000);
+  final String fractionsOfSeconds =
+      formatNumber((secondsAndMilliseconds % 1000) ~/ 10);
 
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -16,7 +17,9 @@ Widget buildTimer(
         '$minutes:$seconds',
         style: mainTimerStyle,
       ),
-      Text(".$milliseconds", style: smallTimerStyle)
+      Text(".$fractionsOfSeconds", style: smallTimerStyle),
+      // crappy little debug thingie. i highly doubt i'll be needing this again.
+      // Text(time.toString())
     ],
   );
 }

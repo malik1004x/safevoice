@@ -6,7 +6,7 @@ const counterTextStyle = TextStyle(
   fontSize: 80,
   fontWeight: FontWeight.bold,
 );
-const counterMillisecondsTextStyle = TextStyle(
+const counterFractionsTextStyle = TextStyle(
   fontSize: 60,
   fontWeight: FontWeight.w300,
 );

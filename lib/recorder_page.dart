@@ -16,15 +16,22 @@ class RecorderPage extends StatefulWidget {
 
 class _RecorderPageState extends State<RecorderPage> {
   final recorder = Record();
+  final stopwatch = Stopwatch();
   StreamSubscription<RecordState>? _recordSub;
   RecordState _recordState = RecordState.stop;
-  int _recordDuration = 0;
-  Timer? _timer;
+  late Timer _refreshTimer;
 
   @override
   void initState() {
     _recordSub = recorder.onStateChanged().listen((recordState) {
       setState(() => _recordState = recordState);
+    });
+
+    _refreshTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+      // rerender the page periodically for the stopwatch to update.
+      if (stopwatch.isRunning) {
+        setState(() {});
+      }
     });
 
     super.initState();
@@ -34,15 +41,13 @@ class _RecorderPageState extends State<RecorderPage> {
     if (await recorder.hasPermission()) {
       final tmpdir = await getTemporaryDirectory();
       await recorder.start(path: "${tmpdir.path}/tmprec");
-      _recordDuration = 0;
-
-      _startTimer();
+      stopwatch.start();
     }
   }
 
   Future<void> _stop() async {
-    _timer?.cancel();
-    _recordDuration = 0;
+    stopwatch.stop();
+    stopwatch.reset();
 
     final path = await recorder.stop();
     final filename = await getNextAvailableNameSuffix(defaultFileName);
@@ -51,26 +56,18 @@ class _RecorderPageState extends State<RecorderPage> {
   }
 
   Future<void> _pause() async {
-    _timer?.cancel();
+    stopwatch.stop();
     await recorder.pause();
   }
 
   Future<void> _resume() async {
-    _startTimer();
+    stopwatch.start();
     await recorder.resume();
-  }
-
-  void _startTimer() {
-    _timer?.cancel();
-
-    _timer = Timer.periodic(const Duration(milliseconds: 1), (Timer t) {
-      setState(() => _recordDuration++);
-    });
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
+    stopwatch.reset();
     _recordSub?.cancel();
     recorder.dispose();
     super.dispose();
@@ -84,8 +81,8 @@ class _RecorderPageState extends State<RecorderPage> {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          buildTimer(
-              _recordDuration, counterTextStyle, counterMillisecondsTextStyle),
+          buildTimer(stopwatch.elapsedMilliseconds, counterTextStyle,
+              counterFractionsTextStyle),
           Column(
             children: [
               OutlinedButton(
