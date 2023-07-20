@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dialog_boxes.dart';
 import 'password_setup_page.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'about_page.dart';
 import 'main.dart';
-import 'styles.dart';
+import 'theme_data.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -18,22 +19,23 @@ class _SettingsPageState extends State<SettingsPage> {
     return SafeArea(
       child: SettingsList(
         lightTheme: settingsLightTheme,
+        darkTheme: settingsDarkTheme,
         sections: [
           if (isDemoVersion)
             SettingsSection(title: const Text("Demo version"), tiles: [
               _openPage(const Placeholder(), "Purchase full version!",
                   "Make the dev really happy.", Icons.attach_money)
             ]),
-          // these two are pretty damn hard to implement. ima release the app now w/o them and maybe make them full version only.
-          // SettingsSection(title: const Text("General"), tiles: [
-          //   _changeBoolean("darkmode", "Dark mode",
-          //       "Darker colors for the app.", Icons.nightlight_outlined),
-          //   _changeBoolean(
-          //       "geotag",
-          //       "Tag with location",
-          //       "Autoname your recordings with your current location.",
-          //       Icons.location_on_outlined),
-          // ]),
+          SettingsSection(title: const Text("General"), tiles: [
+            _changeBoolean("darkmode", "Dark mode",
+                "Darker colors for the app.", Icons.nightlight_outlined,
+                restartRequired: true),
+            // _changeBoolean(
+            //     "geotag",
+            //     "Tag with location",
+            //     "Autoname your recordings with your current location.",
+            //     Icons.location_on_outlined),
+          ]),
           SettingsSection(
             title: const Text("Security"),
             tiles: [
@@ -68,12 +70,16 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   AbstractSettingsTile _changeBoolean(
-      String element, String title, String description, IconData icon) {
+      String element, String title, String description, IconData icon,
+      {bool restartRequired = false}) {
     return SettingsTile.switchTile(
         initialValue: prefs.getBool("settings.$element"),
         onToggle: ((value) {
           prefs.setBool("settings.$element", value);
           setState(() {});
+          if (restartRequired) {
+            showRestartRequiredDialogBox(context);
+          }
         }),
         title: Text(title),
         description: Text(description),

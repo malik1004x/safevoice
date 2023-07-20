@@ -18,7 +18,6 @@ class _MainNavigatorState extends State<MainNavigator> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
-        surfaceTintColor: Colors.white,
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;

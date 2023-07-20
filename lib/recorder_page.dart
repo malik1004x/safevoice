@@ -28,7 +28,7 @@ class _RecorderPageState extends State<RecorderPage> {
     });
 
     _refreshTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
-      // rerender the page periodically for the stopwatch to update.
+      // re-render the page periodically for the stopwatch to update.
       if (stopwatch.isRunning) {
         setState(() {});
       }

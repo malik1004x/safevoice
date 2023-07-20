@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:settings_ui/settings_ui.dart';
 
 // static aesthetic stuff for ui elements.
 const counterTextStyle = TextStyle(
@@ -46,10 +45,6 @@ const aboutPageAppNameTextStyle = TextStyle(
 const aboutPageVersionTextStyle = TextStyle(
   fontSize: 25,
   fontWeight: FontWeight.w600,
-);
-const settingsLightTheme = SettingsThemeData(
-  settingsListBackground: Colors.white,
-  settingsSectionBackground: Colors.white,
 );
 const aboutPageIcon = Stack(alignment: AlignmentDirectional.center, children: [
   Icon(Icons.fiber_manual_record, color: Colors.red, size: 300.0),

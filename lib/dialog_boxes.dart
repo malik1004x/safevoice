@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restart_app/restart_app.dart';
 
 void showErrorMessage(BuildContext context, String title, String message) {
   showDialog(
@@ -72,6 +73,35 @@ Future<void> askForTextInDialog(BuildContext context,
                   Navigator.of(context).pop();
                 },
               ),
+          ],
+        );
+      });
+}
+
+void showRestartRequiredDialogBox(BuildContext context,
+    {bool cancellable = false, void Function()? onCancelled}) {
+  showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Restart required"),
+          content: const Text("The app will now reload."),
+          actions: [
+            if (cancellable)
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  if (onCancelled != null) onCancelled();
+                },
+              ),
+            TextButton(
+              child: const Text("Restart"),
+              onPressed: () {
+                Restart.restartApp();
+              },
+            )
           ],
         );
       });

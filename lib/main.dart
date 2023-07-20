@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "package:safevoice/theme_data.dart";
 import "encryptor.dart";
 import "password_setup_page.dart";
 import "main_navigator.dart";
@@ -30,15 +31,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var keysSaved = hasKeys();
-
+  var isDarkMode = prefs.getBool("settings.darkmode") ?? false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Secure voice recorder',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
-          useMaterial3: true,
-        ),
+        theme: lightThemeData,
+        darkTheme: darkThemeData,
+        themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
         home: keysSaved
             ? const MainNavigator()
             : PasswordSetupPage(
