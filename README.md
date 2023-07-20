@@ -1,3 +1,3 @@
-# secure_voice_recorder
+# SafeVoice
 
 Passcode-protected, encrypted voice recorder.
