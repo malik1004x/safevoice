@@ -5,11 +5,16 @@ import 'dialog_boxes.dart';
 
 class RecordingListPageElement extends StatefulWidget {
   const RecordingListPageElement(
-      {super.key, required this.path, required this.date, required this.onTap});
+      {super.key,
+      required this.path,
+      required this.date,
+      required this.onTap,
+      required this.onUpdate});
 
   final String path;
   final String date;
   final void Function() onTap;
+  final void Function() onUpdate;
 
   @override
   State<RecordingListPageElement> createState() =>
@@ -42,6 +47,7 @@ class _RecordingListPageElementState extends State<RecordingListPageElement> {
                         onComplete: (result) {
                       try {
                         renameRecording(widget.path, result);
+                        widget.onUpdate();
                       } on FileExistsException {
                         showErrorMessage(context, "File exists",
                             "A recording with this name already exists. Please try another name.");
@@ -53,7 +59,10 @@ class _RecordingListPageElementState extends State<RecordingListPageElement> {
                   onPressed: () {
                     askOKCancelQuestion(context, "Erase recording?",
                         "You cannot undo this action.", (result) {
-                      if (result == true) eraseRecording(widget.path);
+                      if (result == true) {
+                        eraseRecording(widget.path);
+                        widget.onUpdate();
+                      }
                     });
                   },
                   icon: const Icon(Icons.delete)),

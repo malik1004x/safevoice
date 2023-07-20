@@ -28,6 +28,12 @@ class _RecordingsListState extends State<RecordingsList> {
   int failedPasswordAttempts = 0;
 
   @override
+  void initState() {
+    super.initState();
+    _getRecordingsList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (privateKey == "") {
       return PasswordInputPage(
@@ -38,7 +44,9 @@ class _RecordingsListState extends State<RecordingsList> {
         },
       );
     }
-    _getRecordingsList();
+    // uncommented this reloads the recording list constantly.
+    // this causes frame drops if the user has more recordings.
+    // _getRecordingsList();
     return SafeArea(
       child: Column(children: [
         const SizedBox(height: 10.0),
@@ -70,6 +78,7 @@ class _RecordingsListState extends State<RecordingsList> {
                         });
                         _getDecryptedRecording(pathList[index]);
                       },
+                      onUpdate: _getRecordingsList,
                     ),
                   ),
               separatorBuilder: (BuildContext context, int index) =>
