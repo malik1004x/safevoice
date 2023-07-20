@@ -30,6 +30,11 @@ class _SettingsPageState extends State<SettingsPage> {
             _changeBoolean("darkmode", "Dark mode",
                 "Darker colors for the app.", Icons.nightlight_outlined,
                 restartRequired: true),
+            _changeBoolean(
+                "show_fractions",
+                "Detailed timer",
+                "Show fractions of seconds on the recording timer.",
+                Icons.timer)
             // _changeBoolean(
             //     "geotag",
             //     "Tag with location",

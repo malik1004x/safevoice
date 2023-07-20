@@ -20,6 +20,7 @@ class _RecorderPageState extends State<RecorderPage> {
   StreamSubscription<RecordState>? _recordSub;
   RecordState _recordState = RecordState.stop;
   late Timer _refreshTimer;
+  bool fractionsEnabled = prefs.getBool("settings.show_fractions") ?? false;
 
   @override
   void initState() {
@@ -82,7 +83,7 @@ class _RecorderPageState extends State<RecorderPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           buildTimer(stopwatch.elapsedMilliseconds, counterTextStyle,
-              counterFractionsTextStyle),
+              counterFractionsTextStyle, fractionsEnabled),
           Column(
             children: [
               OutlinedButton(

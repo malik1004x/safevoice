@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget buildTimer(
-    int time, TextStyle mainTimerStyle, TextStyle smallTimerStyle) {
+Widget buildTimer(int time, TextStyle mainTimerStyle, TextStyle smallTimerStyle,
+    bool buildFractions) {
   final String minutes = formatNumber(time ~/ 60000);
   final int secondsAndMilliseconds = time % 60000;
   final String seconds = formatNumber(secondsAndMilliseconds ~/ 1000);
@@ -17,7 +17,7 @@ Widget buildTimer(
         '$minutes:$seconds',
         style: mainTimerStyle,
       ),
-      Text(".$fractionsOfSeconds", style: smallTimerStyle),
+      if (buildFractions) Text(".$fractionsOfSeconds", style: smallTimerStyle),
       // crappy little debug thingie. i highly doubt i'll be needing this again.
       // Text(time.toString())
     ],
